@@ -4,12 +4,14 @@
 
 void LIST_NODE_INIT(list_node_t *node)
 {
+  ASSERT(node);
   node->prev = NULL;
   node->next = NULL;
 }
 
 void LIST_INIT(list_t *listroot)
 {
+  ASSERT(listroot);
   LIST_NODE_INIT(&listroot->listhead);
   listroot->length = 0;
 }
@@ -57,21 +59,6 @@ void list_insert_before(list_t *listroot, list_node_t *new_node, list_node_t *be
   return;
 }
 
-void LIST_INSERT_AT_HEAD(list_t *listroot, list_node_t *new_node)
-{
-  list_insert_before(listroot, new_node, listroot->listhead.next); 
-}
-
-void LIST_INSERT_AT_TAIL(list_t *listroot, list_node_t *new_node)
-{
-  list_insert_before(listroot, new_node, NULL); 
-}
-
-list_node_t* LIST_GET_HEAD(list_t *listroot)
-{
-  return listroot->listhead.next;
-}
-
 list_node_t* LIST_GET_NEXT(list_t *listroot, list_node_t *new_node)
 {
   if (new_node)
@@ -80,14 +67,28 @@ list_node_t* LIST_GET_NEXT(list_t *listroot, list_node_t *new_node)
     return NULL;
 }
 
+list_node_t* LIST_GET_PREVIOUS(list_t *listroot, list_node_t *new_node)
+{
+  if (new_node)
+    return new_node->prev;
+  else
+    return NULL;
+}
+
 
 list_node_t* list_remove_node(list_t *listroot, list_node_t *node)
 {
-  if (listroot->length == 0)
-    return NULL;
+  ASSERT(listroot->length);
 
-  node->prev->next = node->next;
-  node->next->prev = node->prev;
+  if (node->prev)
+    node->prev->next = node->next;
+  else
+    listroot->listhead.next = node->next;
+
+  if (node->next)
+    node->next->prev = node->prev;
+  else
+    listroot->listhead.prev = node->prev;
 
   listroot->length--;
 
@@ -96,24 +97,4 @@ list_node_t* list_remove_node(list_t *listroot, list_node_t *node)
   return node;
 }
 
-list_node_t* LIST_REMOVE_FROM_HEAD(list_t *listroot)
-{
-  list_node_t* remove_node = listroot->listhead.next;
-  if (listroot->length == 0)
-    return NULL;
 
-  listroot->listhead.next = remove_node->next;
-
-  return(list_remove_node(listroot, remove_node));
-}
-
-list_node_t* LIST_REMOVE_FROM_TAIL(list_t *listroot)
-{
-  list_node_t* remove_node = listroot->listhead.next;
-  if (listroot->length == 0)
-    return NULL;
-
-  listroot->listhead.prev = remove_node->prev;
-
-  return(list_remove_node(listroot, remove_node));
-}
