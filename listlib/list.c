@@ -1,5 +1,5 @@
-#include "stdio.h"
-#include "assert.h"
+#include <stdio.h>
+#include <assert.h>
 #include "list.h"
 
 void LIST_NODE_INIT(list_node_t *node)
@@ -96,5 +96,6 @@ list_node_t* list_remove_node(list_t *listroot, list_node_t *node)
 
   return node;
 }
+
 
 

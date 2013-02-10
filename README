@@ -1,5 +1,43 @@
 linkedlist-library
 =================
-This is for linked list library and test application
+  This is just another list library. 
+  
+  - All memory is allocated and freed by the application
+  - Key compare fuction should be passed by the application
 
-Test application can be referred for usage.
+Directory: 
+  listlib
+Files:
+  list.h
+  list.c
+
+Features:
+  This library provides interface for the following operations.
+
+  1. To get length of list
+  2. To insert at head
+  3. To insert at tail
+  4. To get head entry
+  5. To get tail entry
+  6. To lookup 
+  7. To remove entry from head
+  8. To remove entry from tail
+  9. To get next entry
+  10. To get previous entry
+
+  Using this interfaces this list can be used as stack and queue.
+
+
+Test Application
+================
+  Sample test application for this list library
+  
+Directory:
+  testapp
+
+Files:
+  makefile
+  testapp.c
+
+
+

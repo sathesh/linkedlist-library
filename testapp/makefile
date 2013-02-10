@@ -1,15 +1,18 @@
 INCLUDES = ../listlib/
 
+FLAGS = -DDEBUG \
+        -g
+
 all: testapp
 
 testapp: testapp.o list.o
-	gcc -o testapp testapp.o list.o
+	gcc $(FLAGS) -o testapp testapp.o list.o
 
 testapp.o: testapp.c  ../listlib/list.h
-	gcc -c testapp.c -I $(INCLUDES) -o testapp.o -g
+	gcc $(FLAGS) -c testapp.c -I $(INCLUDES) -o testapp.o 
 
 list.o: ../listlib/list.c ../listlib/list.h
-	gcc -c $(INCLUDES) ../listlib/list.c -o list.o -g
+	gcc $(FLAGS) -c ../listlib/list.c -I $(INCLUDES) -o list.o 
 
 clean:
 	rm list.o testapp testapp.o
